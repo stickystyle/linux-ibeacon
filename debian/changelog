@@ -1,0 +1,5 @@
+ibeacon (0.0.1-1) unstable; urgency=medium
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Will Hughes <william@hhome.me>  Wed, 28 Sep 2016 22:23:07 +1300

@@ -1,0 +1,11 @@
+Package: ibeacon
+Version: 0.0.1-1
+Architecture: all
+Maintainer: Will Hughes <william@hhome.me>
+Installed-Size: 19
+Depends: python
+Section: unknown
+Priority: optional
+Homepage: <insert the upstream URL, if relevant>
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>
