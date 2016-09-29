@@ -1,3 +1,9 @@
+ibeacon (0.0.1-2) xenial; urgency=medium
+
+  * Add service file to start broadcasting ibeacon
+
+ -- Will Hughes <will@willhughes.name>  Thu, 29 Sep 2016 15:44:57 +1300
+
 ibeacon (0.0.1-1) unstable; urgency=medium
 
   * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
