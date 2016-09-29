@@ -1,3 +1,9 @@
+ibeacon (0.0.1-3) xenial; urgency=medium
+
+  * Add fix for run with sudo from https://github.com/dburr/linux-ibeacon/pull/3
+
+ -- William Hughes <williamh@catalyst.net.nz>  Thu, 29 Sep 2016 16:02:28 +1300
+
 ibeacon (0.0.1-2) xenial; urgency=medium
 
   * Add service file to start broadcasting ibeacon
