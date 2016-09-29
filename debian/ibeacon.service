@@ -1,0 +1,10 @@
+[Unit]
+Description=Configure bluetooth device to broadcast iBeacon
+After=bluetooth.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+EnvironmentFile=/etc/default/ibeacon
+ExecStart=/usr/bin/ibeacon
+ExecStop=/usr/bin/ibeacon --down
