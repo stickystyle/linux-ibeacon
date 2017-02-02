@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 """
 Usage: sudo ibeacon [-u|--uuid=UUID or `random' (default=Beacon Toolkit app)]
@@ -66,16 +66,16 @@ def hexsplit(string):
 def process_command(c):
   global verbose
   if verbose:
-    print ">>> %s" % c
+    print(">>> %s" % c)
   if not simulate:
     os.system(c)
 
 # check to see if we are the superuser - returns 1 if yes, 0 if no
 def check_for_sudo():
-  if 'SUDO_UID' in os.environ.keys():
+  if 'SUDO_UID' in list(os.environ.keys()):
     return 1
   else:
-    print "Error: this script requires superuser privileges.  Please re-run with `sudo.'"
+    print("Error: this script requires superuser privileges.  Please re-run with `sudo.'")
     return 0
 
 # check to see if the hci device is valid
@@ -120,12 +120,12 @@ def main(argv=None):
     try:
       opts, args = getopt.getopt(argv[1:], "hu:M:m:p:vd:nz", ["help", "uuid=", "major=", "minor=", "power=", "verbose", "device=", "simulate", "down"])
 
-    except getopt.error, msg:
+    except getopt.error as msg:
       raise Usage(msg)
 
     for o, a in opts:
       if o in ("-h", "--help"):
-        print __doc__
+        print(__doc__)
         return 0
       elif o in ("-n", "--simulate"):
         simulate = True
@@ -152,20 +152,20 @@ def main(argv=None):
       elif o in ( "-z", "--down"):
         if check_for_sudo():
           if is_valid_device(device):
-            print "Downing iBeacon on %s" % device
+            print("Downing iBeacon on %s" % device)
             process_command("hciconfig %s noleadv" % device)
             process_command("hciconfig %s piscan" % device)
             process_command("hciconfig %s down" % device)
             return 0
           else:
-            print "Error: no such device: %s (try `hciconfig list')" % device
+            print("Error: no such device: %s (try `hciconfig list')" % device)
             return 1
         else:
           return 1
 
     # test for valid UUID
     if not valid_uuid_match.match(uuid):
-      print "Error: `%s' is an invalid UUID." % uuid
+      print("Error: `%s' is an invalid UUID." % uuid)
       return 1
 
     # strip out - symbols from uuid and turn it into uppercase
@@ -174,10 +174,10 @@ def main(argv=None):
 
     # bounds check major/minor ids
     if major < 0 or major > 65535:
-      print "Error: major id is out of bounds (0-65535)"
+      print("Error: major id is out of bounds (0-65535)")
       return 1
     if minor < 0 or minor > 65535:
-      print "Error: minor id is out of bounds (0-65535)"
+      print("Error: minor id is out of bounds (0-65535)")
       return 1
 
     # bail if we're not running as superuser (don't care if we are simulating)
@@ -200,14 +200,14 @@ def main(argv=None):
 
     # make sure we are using a valid hci device
     if not simulate and not is_valid_device(device):
-      print "Error: no such device: %s (try `hciconfig list')" % device
+      print("Error: no such device: %s (try `hciconfig list')" % device)
       return 1
  
     # print status info
-    print "Advertising on %s with:" % device
-    print "       uuid: 0x%s" % uuid
-    print "major/minor: %d/%d (0x%s/0x%s)" % (major, minor, major_hex, minor_hex)
-    print "      power: %d (0x%s)" % (power, power_hex)
+    print("Advertising on %s with:" % device)
+    print("       uuid: 0x%s" % uuid)
+    print("major/minor: %d/%d (0x%s/0x%s)" % (major, minor, major_hex, minor_hex))
+    print("      power: %d (0x%s)" % (power, power_hex))
 
     # first bring up bluetooth
     process_command("hciconfig %s up" % device)
@@ -220,9 +220,9 @@ def main(argv=None):
     # message from hcitool
     process_command("hcitool -i hci0 cmd 0x08 0x0008 1E 02 01 1A 1A FF 4C 00 02 15 %s %s %s %s 00 >/dev/null" % (split_uuid, split_major_hex, split_minor_hex, power_hex))
  
-  except Usage, err:
-    print >>sys.stderr, err.msg
-    print >>sys.stderr, "for help use --help"
+  except Usage as err:
+    print(err.msg, file=sys.stderr)
+    print("for help use --help", file=sys.stderr)
     return 2
 
 ###############################################################################
